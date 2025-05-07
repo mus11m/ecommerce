@@ -1,5 +1,6 @@
 ﻿using ecommerce.Models;
 using ecommerce.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -11,22 +12,21 @@ namespace ecommerce.Controllers
         private readonly ICartItemService cartItemService;
         private readonly ICartService cartService;
 
-        public CartItemController(ICartItemService cartItemService , ICartService cartService)
+        public CartItemController(ICartItemService cartItemService, ICartService cartService)
         {
             this.cartItemService = cartItemService;
             this.cartService = cartService;
         }
 
-        //*************************************************
 
         [HttpGet]
         public IActionResult GetAll()
         {
             List<CartItem> cartItems = cartItemService.GetAll("Product");
 
-            //ViewBag.Cart = cartService.GetAll("CartItems").FirstOrDefault();
+            ViewBag.Cart = cartService.GetAll("CartItems").FirstOrDefault();
 
-            // Get the user ID
+            
             string userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             ViewBag.UserId = userIdClaim;
@@ -41,7 +41,7 @@ namespace ecommerce.Controllers
 
             if (cartItem != null)
             {
-                return View("Get" ,cartItem);
+                return View("Get", cartItem);
             }
 
             return RedirectToAction("GetAll");
@@ -55,20 +55,17 @@ namespace ecommerce.Controllers
             return View(cartItems);
         }
 
-        //--------------------------------------------
 
         [HttpGet]
-        // [Authorize("Admin")]
+        [Authorize("Admin")]
         public IActionResult Insert()
         {
-            /// TODO : continue from here make the VM and test the view
-            /// Note : check Saeed for the register and login pages
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // [Authorize("Admin")]
+        [Authorize("Admin")]
         public IActionResult Insert(CartItem cartItem)
         {
             if (ModelState.IsValid)
@@ -83,10 +80,9 @@ namespace ecommerce.Controllers
             return View(cartItem);
         }
 
-        //--------------------------------------------
 
         [HttpGet]
-        // [Authorize("Admin")]
+        [Authorize("Admin")]
         public IActionResult Update(int id)
         {
             CartItem cartItem = cartItemService.Get(id);
@@ -101,7 +97,7 @@ namespace ecommerce.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //   [Authorize("Admin")]
+        [Authorize("Admin")]
         public IActionResult Update(CartItem cartItem)
         {
             if (ModelState.IsValid)
@@ -122,25 +118,24 @@ namespace ecommerce.Controllers
             return View(cartItem);
         }
 
-        //--------------------------------------------
 
-        //[HttpGet]
-        //// [Authorize("Admin")]
-        //public IActionResult Delete(int id)
-        //{
-        //    CartItem cartItem = cartItemService.Get(id);
+        [HttpGet]
+        [Authorize("Admin")]
+        public IActionResult Delete(int id)
+        {
+            CartItem cartItem = cartItemService.Get(id);
 
-        //    if (cartItem != null)
-        //    {
-        //        return View(cartItem);
-        //    } 
+            if (cartItem != null)
+            {
+                return View(cartItem);
+            }
 
-        //    return RedirectToAction("GetAll");
-        //}
+            return RedirectToAction("GetAll");
+        }
 
 
-        //[ValidateAntiForgeryToken]   Omar : don't turn it on because it consider the js snip message code as a differnet domain => debug later if there is time .
-        // [Authorize("Admin")]
+        [ValidateAntiForgeryToken] 
+         [Authorize("Admin")]
         public IActionResult Delete(int id)
         {
             CartItem cartItem = cartItemService.Get(id);
@@ -149,10 +144,9 @@ namespace ecommerce.Controllers
 
             cartItemService.Save();
 
-            return RedirectToAction("GetAll" , "CartItem");
+            return RedirectToAction("GetAll", "CartItem");
         }
 
-        //********************************************************
 
     }
 }
