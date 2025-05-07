@@ -101,12 +101,12 @@ namespace ecommerce
 
             // saeed : try to change in claim without log user out using this service
 
-            //builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-            //{
-            //    options.LoginPath = "/account/login";
-            //    options.LogoutPath = "/account/logout";
-            //});
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+            {
+                options.LoginPath = "/account/login";
+                options.LogoutPath = "/account/logout";
+            });
 
             var app = builder.Build();
 
