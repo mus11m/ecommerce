@@ -26,15 +26,12 @@ namespace ecommerce.ViewModels.Product
 
         public string Color { get; set; }
 
-        // we want to make array of colors for each product
-        //public int MyProperty { get; set; }
+        public int MyProperty { get; set; }
 
         [DisplayFormat(NullDisplayText = "No Rating yet")]
         [Column(TypeName = "Money")]
 
         public decimal? Rating { get; set; }
-
-        //----------------------------------
 
         [ForeignKey("Category")]
         public int CategoryId { get; set; }

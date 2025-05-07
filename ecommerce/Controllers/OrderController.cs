@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace ecommerce.Controllers
 {
-	//[Authorize]
+	[Authorize]
 	public class OrderController : Controller
 	{
 		private readonly IOrderService orderService;
@@ -23,7 +23,7 @@ namespace ecommerce.Controllers
 
 		public OrderController(IOrderService orderService,
 			UserManager<ApplicationUser> userManager,
-			ICartService cartService ,
+			ICartService cartService,
 			ICartItemService cartItemService,
 			IOrderItemService orderItemService,
 			IProductService productService,
@@ -40,7 +40,6 @@ namespace ecommerce.Controllers
 			this.categoryService = categoryService;
 		}
 
-		//***********************************************
 
 		[HttpGet]
 		public IActionResult GetAll(string? include = null)
@@ -71,14 +70,12 @@ namespace ecommerce.Controllers
 			return View(orders);
 		}
 
-		//--------------------------------------------
+	
 
 		[HttpGet]
 		[Authorize(Roles = "Admin")]
 		public IActionResult Insert()
 		{
-			/// TODO : continue from here make the VM and test the view
-			/// Note : check Saeed for the register and login pages
 			return View();
 		}
 
@@ -99,7 +96,7 @@ namespace ecommerce.Controllers
 			return View(order);
 		}
 
-		//--------------------------------------------
+		
 
 		[HttpGet]
 		[Authorize(Roles = "Admin")]
@@ -132,7 +129,7 @@ namespace ecommerce.Controllers
 			return View(order);
 		}
 
-		//--------------------------------------------
+		
 
 		[HttpGet]
 		[Authorize(Roles = "Admin")]
@@ -160,13 +157,12 @@ namespace ecommerce.Controllers
 			return RedirectToAction("GetAll");
 		}
 
-		//--------------------------------------------
 
 		public async Task<IActionResult> checkout(int CartId, string UserId)
 		{
-            ViewData["AllProductsNames"] = productService.GetAll().Select(c => c.Name).ToList();
+			ViewData["AllProductsNames"] = productService.GetAll().Select(c => c.Name).ToList();
 
-            HttpContext.Session.SetString("uId", UserId);
+			HttpContext.Session.SetString("uId", UserId);
 			HttpContext.Session.SetInt32("cId", CartId);
 
 			List<CartItem> items = cartItemService.Get(i => i.CartId == CartId);
@@ -181,7 +177,7 @@ namespace ecommerce.Controllers
 					OrderItem orderItem = new OrderItem()
 					{ ProductId = item.ProductId, OrderId = order.Id, Quantity = item.Quantity };
 					order.OrderItems.Add(orderItem);
-					//orderItemService.Insert(orderItem);
+					orderItemService.Insert(orderItem);
 				}
 				var serializedRecords = JsonSerializer.Serialize(order);
 				HttpContext.Session.SetString("order", serializedRecords);
@@ -237,9 +233,9 @@ namespace ecommerce.Controllers
 		[HttpPost]
 		public IActionResult checkout(CheckoutViewModel checkoutVM)
 		{
-            ViewData["AllProductsNames"] = productService.GetAll().Select(c => c.Name).ToList();
+			ViewData["AllProductsNames"] = productService.GetAll().Select(c => c.Name).ToList();
 
-            if (ModelState.IsValid)
+			if (ModelState.IsValid)
 			{
 				var order = HttpContext.Session.Get("order");
 				Order orderDesrialized = JsonSerializer.Deserialize<Order>(order);

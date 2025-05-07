@@ -29,9 +29,9 @@ namespace ecommerce.Repository
             return category.Products;
         }
 
-        public Category Get(int id, string? include =null)
+        public Category Get(int id, string? include = null)
         {
-            if(include != null)
+            if (include != null)
             {
                 Context.Category.Include(include).FirstOrDefault(c => c.Id == id);
             }
@@ -70,14 +70,14 @@ namespace ecommerce.Repository
             }
         }
 
-        // THERE IS NO NEED FOR IT
-        //public void RenameCategory(string categoryName, string NewName)
-        //{
-        //    GetCategoryByName(categoryName).Name = NewName;
-        //}
+        
+        public void RenameCategory(string categoryName, string NewName)
+        {
+            GetCategoryByName(categoryName).Name = NewName;
+        }
 
         public void DeleteAllProductsInCategory(int CategoryId)
-        { 
+        {
             Category Category = Get(CategoryId);
             List<Product> products = Category.Products.ToList();
 
@@ -96,7 +96,7 @@ namespace ecommerce.Repository
         {
             Category item = Get(id);
 
-            if(item.Products.Count == 0) // To Check if the category is empty before delete it
+            if (item.Products.Count == 0) // To Check if the category is empty before delete it
             {
                 Context.Remove(item);
             }

@@ -21,9 +21,9 @@
                         <div class="card" style="width: 18rem; height: 43rem;">
                             <img src="/images/Drone Delivery-rafiki.svg" class="card-img-top" alt="...">
                             <div class="card-body">
-                                 @*    <h5 class="card-title text-primary d-inline">Id :  </h5>
+                                    <h5 class="card-title text-primary d-inline">Id :  </h5>
                                     <span>@Model[i].Id</span>
-                                    <hr /> *@
+                                    <hr />
                                 <h5 class="card-title text-primary d-inline">Delivery date :  </h5>
                                     <span>@Model[i].Date</span>
                                     <hr />
@@ -36,9 +36,9 @@
                                     <h5 class="card-title text-primary d-inline">Address :  </h5>
                                     <span>@Model[i].Address</span>
                                     <hr />
-@*                                     <h5 class="card-title text-primary d-inline">Total price :  </h5>
+                                    <h5 class="card-title text-primary d-inline">Total price :  </h5>
                                     <span>@Model[i].</span>  <!--total price-->
-                                    <hr /> *@
+                                    <hr /> 
                                     <button class="btn btn-primary m-4" onclick="showDetails(@Model[i].Id)"> Shipment details </button>
                             </div>
                         </div>
@@ -49,9 +49,9 @@
                             <div class="card" style="width: 18rem; height: 43rem;">
                                 <img src="/images/Drone Delivery-rafiki.svg" class="card-img-top" alt="...">
                                 <div class="card-body">
-                                 @*    <h5 class="card-title text-primary d-inline">Id :  </h5>
+                                    <h5 class="card-title text-primary d-inline">Id :  </h5>
                                     <span>@Model[i + 1].Id</span>
-                                    <hr /> *@
+                                    <hr />
                                     <h5 class="card-title text-primary d-inline">Delivery date :  </h5>
                                     <span>@Model[i+1].Date</span>
                                     <hr />
@@ -64,9 +64,9 @@
                                     <h5 class="card-title text-primary d-inline">Address :  </h5>
                                     <span>@Model[i+1].Address</span>
                                     <hr />
-                                    @*                                     <h5 class="card-title text-primary d-inline">Total price :  </h5>
+                                                                        <h5 class="card-title text-primary d-inline">Total price :  </h5>
                         <span>@Model[i].</span>  <!--total price-->
-                        <hr /> *@
+                        <hr />
                                     <button class="btn btn-primary m-4" onclick="showDetails(@Model[i+1].Id)"> Shipment details </button>
                                 </div>
                             </div>
@@ -77,9 +77,9 @@
                             <div class="card" style="width: 18rem; height: 43rem;">
                                 <img src="/images/Drone Delivery-rafiki.svg" class="card-img-top" alt="...">
                                 <div class="card-body">
-                                  @*   <h5 class="card-title text-primary d-inline">Id :  </h5>
+                                    <h5 class="card-title text-primary d-inline">Id :  </h5>
                                     <span>@Model[i + 2].Id</span>
-                                    <hr /> *@
+                                    <hr />
                                     <h5 class="card-title text-primary d-inline">Delivery date :  </h5>
                                     <span>@Model[i+2].Date</span>
                                     <hr />
@@ -92,9 +92,9 @@
                                     <h5 class="card-title text-primary d-inline">Address :  </h5>
                                     <span>@Model[i+2].Address</span>
                                     <hr />
-                                    @*                                     <h5 class="card-title text-primary d-inline">Total price :  </h5>
+                                                                     <h5 class="card-title text-primary d-inline">Total price :  </h5>
                         <span>@Model[i].</span>  <!--total price-->
-                        <hr /> *@
+                        <hr />
                                     <button class="btn btn-primary m-5" onclick="showDetails(@Model[i+2].Id)"> Shipment details </button>
                                 </div>
                             </div>
@@ -134,12 +134,12 @@
 
     <script>
     function showDetails(id) {
-      //  console.log(id);
+       console.log(id);
         $.ajax({
             url: `/shipment/getShipmentProducts`,
             data: {Id : id},
             success: function (result) {
-              //  console.log(result);
+             console.log(result);
         $("#shipmentDetails").html(result);
                 scrollToDiv("shipmentDetails");
             },

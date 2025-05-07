@@ -101,8 +101,8 @@
                                                         <td>@user.Email</td>
                                                         
                                                         <td>
-                                    @*                         <a asp-action="userDetails" asp-route-id="@user.Id" asp-controller="dashbourd" class="btn btn-info"><i class="fa-solid fa-bars"></i></a>
-                                                            <a asp-action="update" asp-route-id="@user.Id" asp-controller="Account" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a> *@
+                                                             <a asp-action="userDetails" asp-route-id="@user.Id" asp-controller="dashbourd" class="btn btn-info"><i class="fa-solid fa-bars"></i></a>
+                                                            <a asp-action="update" asp-route-id="@user.Id" asp-controller="Account" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a> 
                                                             <a title="add admin" asp-route-id="@user.Id" class="btn btn-info"
                                                                data-bs-toggle="modal" data-bs-target="#confirmMsgModal" onclick="MakeAdmin('@user.UserName')"> <i class="fa-solid fa-user-tie"></i> </a>
                                                             <a asp-action="delete" title="delete" asp-route-id="@user.Id" asp-controller="Account" class="btn btn-danger"
