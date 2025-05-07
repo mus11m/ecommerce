@@ -359,6 +359,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # -------------------------------------------------------------------
-# Ignore all appsettings configuration files (sensitive/machine-specific)
-./ecommerce/appsettings.json
-./ecommerce/appsettings.*.json
+# Ignore appsettings.json (sensitive/machine-specific)
+ecommerce/appsettings.json
+ecommerce/appsettings.*.json
