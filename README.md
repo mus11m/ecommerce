@@ -1,10 +1,10 @@
-<!-- Electro: ASP.NET Core MVC E-commerce Project 🛍️💻 -->
+<!-- TechXpress: ASP.NET Core MVC E-commerce Project 🛍️💻 -->
 
-# Electro: ASP.NET Core MVC E-commerce Project
+# TechXpress: ASP.NET Core MVC E-commerce Project
 
 ## Introduction
 
-Welcome to Electro, our sleek and powerful ASP.NET Core MVC e-commerce project! Crafted during our 9-month ITI Assiut Branch internship, this project represents a fusion of innovation and dedication.
+Welcome to TechXpress, our sleek and powerful ASP.NET Core MVC e-commerce project! Crafted during our DEPI internship, this project represents a fusion of innovation and dedication.
 
 ## Project Overview
 
