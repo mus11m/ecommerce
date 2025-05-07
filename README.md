@@ -25,7 +25,7 @@ Welcome to TechXpress, our sleek and powerful ASP.NET Core MVC e-commerce projec
 
 ## E-commerce Features
 
-- **Product Panorama:** Electro offers a dazzling array of electronic products and categories.
+- **Product Panorama:** TexjXpress offers a dazzling array of electronic products and categories.
 - **Search & Pagination:** Seamlessly navigate through products with advanced search and pagination features.
 - **Filter Funnel:** Dynamically filter products by category, price range, or both, with real-time updates.
 - **Search Wizardry:** Discover products effortlessly with real-time search suggestions.
@@ -40,7 +40,7 @@ Welcome to TechXpress, our sleek and powerful ASP.NET Core MVC e-commerce projec
 
 ## Our Team 🙌💼
 
-Meet the brilliant minds behind Electro:
+Meet the brilliant minds behind this project:
 
 - Abdulrahman Ali Muhammad
 - Hisham Muhammad Abdullah
