@@ -43,7 +43,7 @@ Welcome to Electro, our sleek and powerful ASP.NET Core MVC e-commerce project! 
 Meet the brilliant minds behind Electro:
 
 - Abdulrahman Ali Muhammad
-- Hesham
+- Hisham Muhammad Abdullah
 - Ali Reda
 - Ahmed El-sharabasy
 - Mustafa El-banna
