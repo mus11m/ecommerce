@@ -23,8 +23,6 @@ namespace ecommerce.Models
 
         public string Color { get; set; }
 
-        // we want to make array of colors for each product
-        //public int MyProperty { get; set; }
 
         [DisplayFormat(NullDisplayText = "No Rating yet")]
         [Column(TypeName = "Money")]

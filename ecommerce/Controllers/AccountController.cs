@@ -26,8 +26,8 @@ namespace ecommerce.Controllers
         private readonly IOrderItemRepository orderItemRepository;
         private readonly IProductRepository productRepository;
 
-        public AccountController(UserManager<ApplicationUser> _userManager ,
-            SignInManager<ApplicationUser> _signInManager , RoleManager<IdentityRole> _roleManager,
+        public AccountController(UserManager<ApplicationUser> _userManager,
+            SignInManager<ApplicationUser> _signInManager, RoleManager<IdentityRole> _roleManager,
             IRepository<Shipment> _Repository, IOrderItemRepository _orderItemRepository,
             IProductRepository _productRepository)
         {
@@ -53,27 +53,27 @@ namespace ecommerce.Controllers
 
 
         [HttpGet]
-        public async Task <IActionResult> mailConfirmed(string email)
+        public async Task<IActionResult> mailConfirmed(string email)
         {
             ApplicationUser? user = await userManager.FindByEmailAsync(email);
             user.EmailConfirmed = true;
             await userManager.UpdateAsync(user);
-            return RedirectToAction("login"); 
+            return RedirectToAction("login");
         }
 
 
-        [HttpPost]    
-        public async Task<IActionResult> register(RegisterViewModel model, bool isAdmin)  
+        [HttpPost]
+        public async Task<IActionResult> register(RegisterViewModel model, bool isAdmin)
         {
             ApplicationUser applicationUser = new ApplicationUser
             {
                 UserName = model.userName,
-                PasswordHash =model.password,
+                PasswordHash = model.password,
                 PhoneNumber = model.phoneNumber,
                 Email = model.Email?.Trim()
             };
 
-            if (ModelState.IsValid)                 
+            if (ModelState.IsValid)
             {
                 IdentityResult result = new IdentityResult();
                 try
@@ -84,12 +84,12 @@ namespace ecommerce.Controllers
                 catch (Exception ex)
                 {
                     if (ex.InnerException.Message.StartsWith("Cannot insert duplicate key"))  // if modelstate is valid >> no thing can make excption except duplicate email >> this line for more verification
-                    ModelState.AddModelError(string.Empty, "Already existing email");  // saeed : may cause bugs
+                        ModelState.AddModelError(string.Empty, "Already existing email");  // saeed : may cause bugs
 
                     else { ModelState.AddModelError(string.Empty, ex.InnerException.Message); }
                 }
 
-               // isAdmin = true; 
+                isAdmin = true;
                 if (result.Succeeded)
                 {
                     switch (isAdmin)
@@ -105,8 +105,8 @@ namespace ecommerce.Controllers
                                 return RedirectToAction("users", "dashbourd");
                             break;
                     }
-                    //return View("login"); 
-                    return RedirectToAction("SendForceEmailConfirmationMail" , "Mail" , new { toEmail = model.Email});  // email sent null!!!!!!!!!!
+                    return View("login");
+                    return RedirectToAction("SendForceEmailConfirmationMail", "Mail", new { toEmail = model.Email });  // email sent null!!!!!!!!!!
                 }
 
 
@@ -126,23 +126,23 @@ namespace ecommerce.Controllers
         public IActionResult login()
         {
             return View("login");
-        } 
+        }
 
-        // omar : saeed take a look at what happens when the user enters a wrong passwprd at login
-        [HttpPost , ValidateAntiForgeryToken]
-        public async Task <IActionResult> login(LoginViewModel model)
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> login(LoginViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 ApplicationUser user = await userManager.FindByNameAsync(model.userName);
-                if(user != null)
+                if (user != null)
                 {
-                 bool matched = await userManager.CheckPasswordAsync(user, model.password);
-                    if(matched) 
+                    bool matched = await userManager.CheckPasswordAsync(user, model.password);
+                    if (matched)
                     {
-                        if(user.EmailConfirmed)
+                        if (user.EmailConfirmed)
                         {
-                           List<Claim> claims = new List<Claim>();
+                            List<Claim> claims = new List<Claim>();
                             claims.Add(new Claim("name", model.userName));
                             await signInManager.SignInWithClaimsAsync(user, model.rememberMe, claims);
                             return RedirectToAction("Index", "Home");
@@ -155,33 +155,33 @@ namespace ecommerce.Controllers
                 }
             }
             ModelState.AddModelError("", "invalid user name");
-            return View("login" , model); 
+            return View("login", model);
         }
 
 
         public async Task<IActionResult> logout()
         {
-            await signInManager.SignOutAsync();   
-            return RedirectToAction("login"); 
+            await signInManager.SignOutAsync();
+            return RedirectToAction("login");
         }
 
 
-        // hoda aswan made another func in dashboard
+       
 
-        //[HttpGet , Authorize(Roles = "Admin")]
-        //public async Task<IActionResult> AddAdmin()
-        //{
-        //    List<string> userNames = new List<string>();
+       [HttpGet, Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddAdmin()
+        {
+            List<string> userNames = new List<string>();
 
-        //    IList<ApplicationUser> users =  await userManager.GetUsersInRoleAsync("User");
+            IList<ApplicationUser> users = await userManager.GetUsersInRoleAsync("User");
 
-        //    foreach (ApplicationUser user in users)
-        //    {
-        //        userNames.Add(user.UserName);
-        //    }
+            foreach (ApplicationUser user in users)
+            {
+                userNames.Add(user.UserName);
+            }
 
-        //    return View(userNames);  
-        //}
+            return View(userNames);
+        }
 
 
         public async Task<IActionResult> confirmMakeAdmin(string userName)
@@ -189,7 +189,7 @@ namespace ecommerce.Controllers
             ApplicationUser user = await userManager.FindByNameAsync(userName);
             if (user != null)
             {
-                await userManager.RemoveFromRoleAsync(user, "User"); 
+                await userManager.RemoveFromRoleAsync(user, "User");
                 await userManager.AddToRoleAsync(user, "Admin");
                 return RedirectToAction("users", "Dashbourd");
             }
@@ -197,76 +197,76 @@ namespace ecommerce.Controllers
         }
 
 
-        // hoda aswan made another func in dashboard
 
-        //public async Task <IActionResult> removeAdmin(string userName)
-        //{
-        //    List<string> userNames = new List<string>();
 
-        //    IList<ApplicationUser> users = await userManager.GetUsersInRoleAsync("Admin");
+        public async Task<IActionResult> removeAdmin(string userName)
+        {
+            List<string> userNames = new List<string>();
 
-        //    foreach (ApplicationUser user in users)
-        //    {  
-        //        userNames.Add(user.UserName);
-        //    }
+            IList<ApplicationUser> users = await userManager.GetUsersInRoleAsync("Admin");
 
-        //    return View(userNames);
-        //}
+            foreach (ApplicationUser user in users)
+            {
+                userNames.Add(user.UserName);
+            }
+
+            return View(userNames);
+        }
 
 
 
         public async Task<IActionResult> confirmRemoveAdmin(string userName)
         {
             ApplicationUser appUser = await userManager.FindByNameAsync(userName);
-            if (appUser != null) 
+            if (appUser != null)
             {
                 await userManager.RemoveFromRoleAsync(appUser, "Admin");
                 await userManager.AddToRoleAsync(appUser, "User");
-                if(User.FindFirst("name")?.Value == userName)
+                if (User.FindFirst("name")?.Value == userName)
                 {
                     return RedirectToAction("logout");
                 }
-                return RedirectToAction("admins" , "dashbourd"); 
-            } 
+                return RedirectToAction("admins", "dashbourd");
+            }
             return RedirectToAction("admins", "dashbourd");   // which view should be returned if user not found!!!!!
         }
 
 
         [HttpGet]
-        public IActionResult forgotPassword() 
+        public IActionResult forgotPassword()
         {
             return View("forgotPassword");
         }
 
 
         [HttpPost]
-        public async Task <IActionResult> forgotPassword(ForgotPasswordViewModel model)
+        public async Task<IActionResult> forgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 model.Email = model?.Email.Trim();
-              ApplicationUser? user = await userManager.FindByEmailAsync(model.Email);
+                ApplicationUser? user = await userManager.FindByEmailAsync(model.Email);
 
-                if (user != null) 
+                if (user != null)
                 {
-                    string token = await userManager.GeneratePasswordResetTokenAsync(user); 
-                  //  token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));         // saeed : search for decoding 
-                    string callBackUrl = Url.Action("resetPassword", "account" , values: new { token , userName = user.UserName },
-                        protocol: Request.Scheme);   
-                      
-                  return RedirectToAction("SendMail", "Mail", 
-                      routeValues: new{ emailTo = user.Email , username = user.UserName , callBackUrl = callBackUrl });   
-                   
+                    string token = await userManager.GeneratePasswordResetTokenAsync(user);
+                    token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));         // saeed : search for decoding 
+                    string callBackUrl = Url.Action("resetPassword", "account", values: new { token, userName = user.UserName },
+                        protocol: Request.Scheme);
+
+                    return RedirectToAction("SendMail", "Mail",
+                        routeValues: new { emailTo = user.Email, username = user.UserName, callBackUrl = callBackUrl });
+
                 }
                 ModelState.AddModelError("", "Email not existed");
-                return View("forgotPassword", model);  
+                return View("forgotPassword", model);
             }
             return View("forgotPassword", model);
         }
 
 
         [HttpGet]
-        public IActionResult ResetPassword([FromQueryAttribute]string userName , [FromQueryAttribute]string token)  
+        public IActionResult ResetPassword([FromQueryAttribute] string userName, [FromQueryAttribute] string token)
         {
             ViewBag.UserName = userName;
             ViewBag.Token = token;
@@ -274,17 +274,17 @@ namespace ecommerce.Controllers
         }
 
         [HttpPost]
-        public async Task <IActionResult> ResetPassword(resetPasswordViewModel model)
+        public async Task<IActionResult> ResetPassword(resetPasswordViewModel model)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
-              ApplicationUser? user = await userManager.FindByNameAsync(model.userName);
-             IdentityResult result = await userManager
-                    .ResetPasswordAsync(user, model.token, model.newPassword);
+                ApplicationUser? user = await userManager.FindByNameAsync(model.userName);
+                IdentityResult result = await userManager
+                       .ResetPasswordAsync(user, model.token, model.newPassword);
 
 
                 if (result.Succeeded)
-                return View("login");
+                    return View("login");
 
                 else
                 {
@@ -293,38 +293,42 @@ namespace ecommerce.Controllers
 
                     return View("resetPassword", model);
                 }
-            } 
-            return View("resetPassword" , model);
+            }
+            return View("resetPassword", model);
         }
 
 
 
 
-        public async Task <IActionResult> myAccount(string selectedPartial = "_accountInfoPartial", resetPasswordViewModel changePasswordModel = null)
+        public async Task<IActionResult> myAccount(string selectedPartial = "_accountInfoPartial", resetPasswordViewModel changePasswordModel = null)
         {
-			//Claim nameClaim = User.Claims.FirstOrDefault(c => c.Type == "name");
-			//if (nameClaim != null)
-			//    ViewBag.Name = nameClaim.Value; 
-			ApplicationUser user = await userManager.FindByNameAsync(User.Identity.Name);  // err
-			AccountInfoViewModel model = new AccountInfoViewModel()
-			{
-				userName = user.UserName,
-				phoneNumber = user.PhoneNumber,
-				Email = user.Email
-			};
+            Claim nameClaim = User.Claims.FirstOrDefault(c => c.Type == "name");
+            if (nameClaim != null)
+                ViewBag.Name = nameClaim.Value;
+            ApplicationUser user = await userManager.FindByNameAsync(User.Identity.Name);  // err
+            AccountInfoViewModel model = new AccountInfoViewModel()
+            {
+                userName = user.UserName,
+                phoneNumber = user.PhoneNumber,
+                Email = user.Email
+            };
             ViewBag.selectedPartial = selectedPartial;
             ViewBag.resetPasswordModel = changePasswordModel;
-			return View(model);
+            return View(model);
         }
 
 
 
-        public async Task <IActionResult> getAccountInfoPartial()
+        public async Task<IActionResult> getAccountInfoPartial()
         {
-            ApplicationUser user = await userManager.FindByNameAsync (User.Identity.Name);
-            AccountInfoViewModel model = new AccountInfoViewModel() { userName = user.UserName,
-                phoneNumber = user.PhoneNumber, Email = user.Email };
-            return View("_accountInfoPartial" , model);  // send v.m 
+            ApplicationUser user = await userManager.FindByNameAsync(User.Identity.Name);
+            AccountInfoViewModel model = new AccountInfoViewModel()
+            {
+                userName = user.UserName,
+                phoneNumber = user.PhoneNumber,
+                Email = user.Email
+            };
+            return View("_accountInfoPartial", model);  // send v.m 
         }
 
         public IActionResult getAccountChangePasswordPartial()
@@ -339,24 +343,24 @@ namespace ecommerce.Controllers
         }
 
 
-        public async Task <IActionResult> getAccountShipmentsPartial()
+        public async Task<IActionResult> getAccountShipmentsPartial()
         {
             List<string> randomProductImages = new List<string>();
-          //  return Content("sd");
-           ApplicationUser? user = await userManager.FindByNameAsync(User.Identity.Name);
+            return Content("sd");
+            ApplicationUser? user = await userManager.FindByNameAsync(User.Identity.Name);
             List<Shipment>? shipments = shipmentRepository.Get(s => s.UserId == user.Id);
 
-            //if (shipments.Count == 0)
-            //    return View("NotFound"); 
-            return View("_accountShipmentsPartial" , shipments);
+            if (shipments.Count == 0)
+                return View("NotFound");
+            return View("_accountShipmentsPartial", shipments);
         }
 
 
-      
+
 
 
         [HttpPost]
-        public async Task <IActionResult> editAccountInfo(string userName , string phoneNumber , string Email)  // cannot send model it self from partial view , when try serialize and send json from view >> json come with old data
+        public async Task<IActionResult> editAccountInfo(string userName, string phoneNumber, string Email)  // cannot send model it self from partial view , when try serialize and send json from view >> json come with old data
         {
             AccountInfoViewModel model = new AccountInfoViewModel()
             {
@@ -365,7 +369,7 @@ namespace ecommerce.Controllers
                 Email = Email
             };
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 ApplicationUser user = await userManager.FindByEmailAsync(Email);
                 if (user != null)
@@ -376,55 +380,55 @@ namespace ecommerce.Controllers
                         user.PhoneNumber = model.phoneNumber;
                         await userManager.UpdateAsync(user);      // saeed : if new userName is not unique to validation msg appear to user and no update also will happen try to solve
                     }
-                    catch(Exception ex) 
+                    catch (Exception ex)
                     {
                         ModelState.AddModelError(string.Empty, ex.Message);
                         return RedirectToAction("myAccount", "account", model);
                     }
 
 
-                    //ClaimsIdentity claimsIdentity = new ClaimsIdentity(User.Identity);
-                    //claimsIdentity.RemoveClaim(claimsIdentity.FindFirst(ClaimTypes.Name));
-                    //claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, model.userName));
+                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(User.Identity);
+                    claimsIdentity.RemoveClaim(claimsIdentity.FindFirst(ClaimTypes.Name));
+                    claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, model.userName));
 
-                    //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                    //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                    if(User.Identity.Name != user.UserName)
+                    if (User.Identity.Name != user.UserName)
                         return RedirectToAction("logout", "account");   // saeed : try to update name in claim without log user out
 
-                    return RedirectToAction("Index" , "Home"); 
+                    return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("invalidSentEmail", "User not fount");
-                return RedirectToAction("myAccount", "account" , model);  
+                return RedirectToAction("myAccount", "account", model);
             }
             return RedirectToAction("myAccount", "account", model);
         }
 
 
-        public async Task <IActionResult> editAccountPassword(resetPasswordViewModel model)
+        public async Task<IActionResult> editAccountPassword(resetPasswordViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-               ApplicationUser user = await userManager.FindByNameAsync(User.Identity?.Name);
+                ApplicationUser user = await userManager.FindByNameAsync(User.Identity?.Name);
 
-                if(user != null) 
+                if (user != null)
                 {
                     string token = await userManager.GeneratePasswordResetTokenAsync(user);
-                    await userManager.ResetPasswordAsync(user, token , model.newPassword);
+                    await userManager.ResetPasswordAsync(user, token, model.newPassword);
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError(string.Empty, "Invalid user");
-                return RedirectToAction("myAccount","_accountChangePasswordPartial" , model); // partial view only will return >> impossible for this case to match
+                return RedirectToAction("myAccount", "_accountChangePasswordPartial", model); // partial view only will return >> impossible for this case to match
             }
-            return RedirectToAction("myAccount", new { selectedPartial = "_accountChangePasswordPartial", changePasswordModel = model}); // partial view only will return >> impossible for this case to match
+            return RedirectToAction("myAccount", new { selectedPartial = "_accountChangePasswordPartial", changePasswordModel = model }); // partial view only will return >> impossible for this case to match
 
-           // return RedirectToAction("getAccountChangePasswordPartial", "account", model); // partial view only will return >> impossible for this case to match
+            return RedirectToAction("getAccountChangePasswordPartial", "account", model); // partial view only will return >> impossible for this case to match
         }
 
-        //public IActionResult test()
-        //{
-        //    return View();
-        //} 
+        public IActionResult test()
+        {
+            return View();
+        }
     }
 }

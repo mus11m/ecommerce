@@ -16,9 +16,7 @@ namespace ecommerce.Repository
 
         void Insert(Category item);
 
-        //I think its related to products
-        //void ChangeProductCategory(Product item, int old_category_id, int new_category_id); // To transfer product from category to another
-
+        
         void TransferAllProductsToAnotherCategory(int OldCategoryId, int NewCategoryId);
 
         void DeleteAllProductsInCategory(int CategoryId);
