@@ -240,10 +240,6 @@ ClientBin/
 *.publishsettings
 orleans.codegen.cs
 
-# Including strong name files can present a security risk
-# (https://github.com/github/gitignore/pull/2483#issue-259490424)
-#*.snk
-
 # Since there are multiple workflows, uncomment next line to ignore bower_components
 # (https://github.com/github/gitignore/pull/1529#issuecomment-104372622)
 #bower_components/
@@ -361,3 +357,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# -------------------------------------------------------------------
+# Ignore all appsettings configuration files (sensitive/machine-specific)
+appsettings.json
+appsettings.*.json
