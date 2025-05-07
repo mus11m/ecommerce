@@ -42,16 +42,13 @@ Welcome to Electro, our sleek and powerful ASP.NET Core MVC e-commerce project! 
 
 Meet the brilliant minds behind Electro:
 
-- Mahmoud Sadek
-- Omar Ahmed Abo Ziada
-- Mahmoud Mohamed
-- Saeed Mohamed
-- Mohammed Abdelraheem
-- Anas Ashraf
-- Abdallah Refaey
+- Abdulrahman Ali Muhammad
+- Hesham
+- Ali Reda
+- Ahmed El-sharabasy
+- Mustafa El-banna
 
 ## Acknowledgements
 
-Massive gratitude to our mentor, Eng. Christen Zarif, whose guidance was the wind beneath our wings at ITI. 
-A heartfelt thank you to Eng. Ayman Ayad, the Maestro of ITI Assiut Branch, for nurturing our growth in a vibrant learning environment.
+#### Created as a project for the DEPI round-2 students graduation.
 
