@@ -18,8 +18,8 @@ namespace ecommerce.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IOrderItemService orderItemService;
 
-        public DashbourdController(IProductService productService, 
-            ICategoryService categoryService, 
+        public DashbourdController(IProductService productService,
+            ICategoryService categoryService,
             ICommentService commentService,
             IOrderService orderService,
             UserManager<ApplicationUser> userManager,
@@ -40,7 +40,7 @@ namespace ecommerce.Controllers
         public IActionResult products()
         {
             List<Product> products = productService.GetAll();
-            return View(products); 
+            return View(products);
         }
 
         [HttpGet]
@@ -49,14 +49,14 @@ namespace ecommerce.Controllers
 
             ProductWithCatNameAndComments prod = await productService.WithCatNameAndComments(id);
             prod.Comments = await commentService.GetCommentWithUserName(id);
-            //Product product = productService.Get(id);
-            //product.Category = categoryService.Get(product.CategoryId);
-            //product.Comments = commentService.GetComments(c => c.ProductId == id);
-            return View("ProductDetails",prod);
+            Product product = productService.Get(id);
+            product.Category = categoryService.Get(product.CategoryId);
+            product.Comments = commentService.GetComments(c => c.ProductId == id);
+            return View("ProductDetails", prod);
         }
         public IActionResult orders()
         {
-            List<Order> orders =  orderService.GetAll("User");
+            List<Order> orders = orderService.GetAll("User");
 
             return View(orders);
         }
@@ -85,7 +85,7 @@ namespace ecommerce.Controllers
         {
             List<Order> orders = orderService.GetAll("User");
 
-            return PartialView("_getOrdersPartial",orders);
+            return PartialView("_getOrdersPartial", orders);
         }
         public IActionResult categories()
         {
@@ -93,15 +93,15 @@ namespace ecommerce.Controllers
             return View(cates);
         }
 
-        public async Task <IActionResult> users()
+        public async Task<IActionResult> users()
         {
-            IList<ApplicationUser> users = await userManager.GetUsersInRoleAsync("User"); 
+            IList<ApplicationUser> users = await userManager.GetUsersInRoleAsync("User");
             return View(users);
         }
 
         public IActionResult numberOfUsers()
         {
-            int users =  userManager.Users.Count();
+            int users = userManager.Users.Count();
             return Json(users);
         }
 
@@ -120,16 +120,16 @@ namespace ecommerce.Controllers
 
         public async Task<IActionResult> CommentPartial()
         {
-            List<CommentWithUserNameViewModel> comments =  await commentService.GetCommentWithUserNameTake(5);
-            return PartialView("_CommentPartial",comments);    
+            List<CommentWithUserNameViewModel> comments = await commentService.GetCommentWithUserNameTake(5);
+            return PartialView("_CommentPartial", comments);
         }
 
         public IActionResult GetTotalOrdersPrice()
         {
             decimal total = 0;
             List<Order> orders = orderService.GetAll("OrderItems");
-            
-            foreach(Order order in orders)
+
+            foreach (Order order in orders)
             {
                 foreach (OrderItem item in order.OrderItems)
                 {
@@ -147,30 +147,30 @@ namespace ecommerce.Controllers
         }
 
 
-        // saeed
-        public async Task <IActionResult> deleteAccount(string userName) 
+        
+        public async Task<IActionResult> deleteAccount(string userName)
         {
-          ApplicationUser? userApp = await userManager.FindByNameAsync(userName);
-            if (userApp != null) 
+            ApplicationUser? userApp = await userManager.FindByNameAsync(userName);
+            if (userApp != null)
             {
-              if(await userManager.IsInRoleAsync(userApp, "Admin")) 
+                if (await userManager.IsInRoleAsync(userApp, "Admin"))
                 {
-                  await userManager.RemoveFromRolesAsync(userApp, await userManager.GetRolesAsync(userApp)); 
-                  await userManager.DeleteAsync(userApp);
-                    if(User.FindFirst("name")?.Value == userName)
+                    await userManager.RemoveFromRolesAsync(userApp, await userManager.GetRolesAsync(userApp));
+                    await userManager.DeleteAsync(userApp);
+                    if (User.FindFirst("name")?.Value == userName)
                     {
-                        return RedirectToAction("logout" , "account"); 
+                        return RedirectToAction("logout", "account");
                     }
-                    return RedirectToAction("admins");  
+                    return RedirectToAction("admins");
                 }
 
-              else
+                else
                 {
                     await userManager.RemoveFromRolesAsync(userApp, await userManager.GetRolesAsync(userApp));
                     await userManager.DeleteAsync(userApp);
                     return RedirectToAction("users");
                 }
-                    
+
             }
             return RedirectToAction("users");
 

@@ -134,9 +134,9 @@ namespace ecommerce.Controllers
         }
 
 
-        [ValidateAntiForgeryToken] 
-         [Authorize("Admin")]
-        public IActionResult Delete(int id)
+        [ValidateAntiForgeryToken]
+        [Authorize("Admin")]
+        public IActionResult Delete(int id, int something = 2)
         {
             CartItem cartItem = cartItemService.Get(id);
 

@@ -13,17 +13,16 @@ namespace ecommerce.Controllers
         private readonly ICategoryService categoryService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public CategoryController(ICategoryService categoryService,IWebHostEnvironment web) 
+        public CategoryController(ICategoryService categoryService, IWebHostEnvironment web)
         {
             this.categoryService = categoryService;
             this._webHostEnvironment = web;
 
         }
 
-        //*********************************************************
 
         [HttpGet]
-        //[Route("/Dashbourd/categories")]
+        [Route("/Dashbourd/categories")]
         public IActionResult GetAll(string? include = null)
         {
             List<Category> categories = categoryService.GetAll(include);
@@ -38,7 +37,7 @@ namespace ecommerce.Controllers
 
             if (category != null)
             {
-                return View("Get" ,category);
+                return View("Get", category);
             }
 
             return RedirectToAction("GetAll");
@@ -65,19 +64,18 @@ namespace ecommerce.Controllers
             return View(categories);
         }
 
-        //--------------------------------------------
 
         [HttpGet]
-        //[Authorize("Admin")]
-        public IActionResult Insert()
+        [Authorize("Admin")]
+        public IActionResult Insert(int another = 2)
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
-        public IActionResult Insert(Category category)
+        [Authorize(Roles = "Admin")]
+        public IActionResult Insert(Category category, int something = 2)
         {
             string uploadpath = Path.Combine(_webHostEnvironment.WebRootPath, "img");
             string imagename = Guid.NewGuid().ToString() + "_" + category.image.FileName;
@@ -100,10 +98,9 @@ namespace ecommerce.Controllers
             return View(category);
         }
 
-        //--------------------------------------------
 
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Update(int id)
         {
             Category category = categoryService.Get(id, "Products");
@@ -119,7 +116,7 @@ namespace ecommerce.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Update(Category category)
         {
             string uploadpath = Path.Combine(_webHostEnvironment.WebRootPath, "img");
@@ -142,10 +139,9 @@ namespace ecommerce.Controllers
             return View(category);
         }
 
-        //--------------------------------------------
 
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             Category category = categoryService.Get(id);
@@ -160,7 +156,7 @@ namespace ecommerce.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(Category category)
         {
             categoryService.Delete(category);
@@ -170,28 +166,26 @@ namespace ecommerce.Controllers
             return RedirectToAction("categories", "dashbourd");
         }
 
-        //--------------------------------------------
 
 
 
-        // refaaey
 
-        //public IActionResult Insert()
-        //      {
-        //          return View();
-        //      }
+        public IActionResult Insert()
+        {
+            return View();
+        }
 
-        //      public IActionResult Update(int CategoryId)
-        //      {
-        //          return View("", categoryService.Get(CategoryId));
-        //      }
+        public IActionResult Update(int CategoryId, int something = 2)
+        {
+            return View("", categoryService.Get(CategoryId));
+        }
 
-        //      public IActionResult ShowCategoryProducts(int CategoryId)
-        //      {
-        //          Category category = categoryService.Get(CategoryId);
+        public IActionResult ShowCategoryProducts(int CategoryId)
+        {
+            Category category = categoryService.Get(CategoryId);
 
-        //          return View("", category.Products);
-        //      }
+            return View("", category.Products);
+        }
 
 
     }

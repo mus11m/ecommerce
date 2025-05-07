@@ -7,10 +7,9 @@ namespace ecommerce.Repository
 
         public ProductRepository(Context _context) : base(_context)
         {
-            // Omar : implement the methods u declared in IProductRepository
-            // and if u added method here don't forget to declare it first in the interface
+
         }
-        
+
         public void Insert(Product product)
         {
             Context.Add(product);
@@ -32,7 +31,7 @@ namespace ecommerce.Repository
 
         public Product Get(int Id)
         {
-            return Context.Product.FirstOrDefault(p=>p.Id==Id);
+            return Context.Product.FirstOrDefault(p => p.Id == Id);
         }
         public List<Product> Get(Func<Product, bool> where)
         {
@@ -48,8 +47,6 @@ namespace ecommerce.Repository
         {
             Context.SaveChanges();
         }
-
-        //-------------------------------------------------------------
 
         public List<Product> GetPageList(int skipstep, int pageSize)
         {

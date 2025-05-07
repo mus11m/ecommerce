@@ -29,6 +29,5 @@ namespace ecommerce.Models
 
         public Shipment? Shipment { get; set; }
 
-        // Omar : New Update
     }
 }

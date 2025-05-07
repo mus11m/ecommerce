@@ -1,5 +1,7 @@
 ﻿using ecommerce.Models;
 using ecommerce.Services;
+using ecommerce.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -11,16 +13,16 @@ namespace ecommerce.Controllers
     {
 
         private IShipmentService shipmentService;
-		private readonly IOrderItemService orderItemService;
-		private readonly IOrderService orderService;
+        private readonly IOrderItemService orderItemService;
+        private readonly IOrderService orderService;
         private readonly IOrderItemService orderItemServic;
         private readonly IProductService productService;
 
-        public ShipmentController(IShipmentService shipment, IOrderItemService orderItemService , IOrderService orderService, IOrderItemService orderItemServic, IProductService productService)
+        public ShipmentController(IShipmentService shipment, IOrderItemService orderItemService, IOrderService orderService, IOrderItemService orderItemServic, IProductService productService)
         {
             shipmentService = shipment;
-			this.orderItemService = orderItemService;
-			this.orderService = orderService;
+            this.orderItemService = orderItemService;
+            this.orderService = orderService;
             this.orderItemServic = orderItemServic;
             this.productService = productService;
         }
@@ -43,7 +45,7 @@ namespace ecommerce.Controllers
             {
                 return View(shipment);
             }
-            
+
             return RedirectToAction("GetAll");
         }
 
@@ -63,7 +65,7 @@ namespace ecommerce.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //   [Authorize("Admin")]
+        [Authorize("Admin")]
         public IActionResult Insert(Shipment shipment)
         {
             if (ModelState.IsValid)
@@ -79,7 +81,7 @@ namespace ecommerce.Controllers
         }
 
         [HttpGet]
-        // [Authorize("Admin")]
+        [Authorize("Admin")]
         public IActionResult Update(int id)
         {
             Shipment shipment = shipmentService.Get(id);
@@ -94,7 +96,7 @@ namespace ecommerce.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //   [Authorize("Admin")]
+        [Authorize("Admin")]
         public IActionResult Update(Shipment shipment)
         {
             if (ModelState.IsValid)
@@ -110,7 +112,7 @@ namespace ecommerce.Controllers
         }
 
         [HttpGet]
-        // [Authorize("Admin")]
+        [Authorize("Admin")]
         public IActionResult Delete(int id)
         {
             Shipment shipment = shipmentService.Get(id);
@@ -125,7 +127,7 @@ namespace ecommerce.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // [Authorize("Admin")]
+        [Authorize("Admin")]
         public IActionResult Delete(Shipment shipment)
         {
             shipmentService.Delete(shipment);
@@ -137,33 +139,33 @@ namespace ecommerce.Controllers
 
         public IActionResult PlaceShipment(Shipment s)
         {
-            
-                var order = HttpContext.Session.Get("order");
-                Order orderDesrialized = JsonSerializer.Deserialize<Order>(order);
-                Order o = new Order() { 
-                    OrderDate = orderDesrialized.OrderDate , 
-                    ApplicationUserId = orderDesrialized.ApplicationUserId , 
-                    };
-                orderService.Insert(o);
-                s.OrderId = o.Id;
-                s.Date = DateTime.Now.AddDays(3);
-                shipmentService.Insert(s);
-                o.ShipmentId = s.Id;
-                orderService.Save();
-                s.Order = null;
-                return View(s);
-            
+
+            var order = HttpContext.Session.Get("order");
+            Order orderDesrialized = JsonSerializer.Deserialize<Order>(order);
+            Order o = new Order()
+            {
+                OrderDate = orderDesrialized.OrderDate,
+                ApplicationUserId = orderDesrialized.ApplicationUserId,
+            };
+            orderService.Insert(o);
+            s.OrderId = o.Id;
+            s.Date = DateTime.Now.AddDays(3);
+            shipmentService.Insert(s);
+            o.ShipmentId = s.Id;
+            orderService.Save();
+            s.Order = null;
+            return View(s);
+
         }
 
 
 
 
-        // saeed : get shipment products "return partial view"
         [HttpGet]
         public IActionResult getShipmentProducts(int Id)
         {
-            //LoginViewModel l = new LoginViewModel() { userName = "saeed"};
-            //return View("test" , l);   
+            LoginViewModel l = new LoginViewModel() { userName = "saeed" };
+            return View("test", l);
 
             Shipment shipment = shipmentService.Get(Id);
 
@@ -184,5 +186,5 @@ namespace ecommerce.Controllers
             return View("_GetShipmentProductsPartial", shipmentProducts);
         }
 
-        }
     }
+}
