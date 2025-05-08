@@ -361,4 +361,4 @@ FodyWeavers.xsd
 # -------------------------------------------------------------------
 # Ignore appsettings.json (sensitive/machine-specific)
 ecommerce/appsettings.json
-ecommerce/appsettings.*.json
+ecommerce/appsettings.Development.json
