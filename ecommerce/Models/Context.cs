@@ -29,11 +29,18 @@ namespace ecommerce.Models
         {
             base.OnModelCreating(builder);
 
-            // Unique index for ApplicationUser's Email
-            builder.Entity<ApplicationUser>().HasIndex(appUser => appUser.Email)
-                .IsUnique();
+            // Explicitly define relationships
+            builder.Entity<Cart>()
+                .HasOne(c => c.User)
+                .WithMany()
+                .HasForeignKey(c => c.ApplicationUserId);
 
-            // Seed all data (roles, users, categories, products, etc.)
+            builder.Entity<Order>()
+                .HasOne(o => o.Shipment)
+                .WithOne(s => s.Order)
+                .HasForeignKey<Order>(o => o.ShipmentId);
+
+            // Seed data AFTER configuring relationships
             SeedData.Initialize(builder);
         }
     }

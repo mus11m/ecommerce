@@ -1,0 +1,254 @@
+Folder PATH listing for volume Windows
+Volume serial number is 5ED7-E028
+C:\USERS\20109\SOURCE\REPOS\ECOMMERCE
+|   .gitattributes
+|   .gitignore
+|   ecommerce.sln
+|   folder-structure.txt
+|   README.md
+|   
++---.github
+|   \---workflows
++---ecommerce
+|   |   appsettings.Development.json
+|   |   appsettings.json
+|   |   ecommerce.csproj
+|   |   ecommerce.csproj.user
+|   |   Hesham.sql
+|   |   libman.json
+|   |   Program.cs
+|   |   
+|   +---Controllers
+|   |       AccountController.cs
+|   |       CartController.cs
+|   |       CartItemController.cs
+|   |       CategoryController.cs
+|   |       DashbourdController.cs
+|   |       HomeController.cs
+|   |       MailController.cs
+|   |       OrderController.cs
+|   |       OrderItemController.cs
+|   |       ProductController.cs
+|   |       RoleController.cs
+|   |       ShipmentController.cs
+|   |       
+|   +---Data
+|   |       SeedData.cs
+|   |       
+|   +---Hubs
+|   |       CommentHub.cs
+|   |       
+|   +---Migrations
+|   |       20250508182107_InitialCreate.cs
+|   |       20250508182107_InitialCreate.Designer.cs
+|   |       ContextModelSnapshot.cs
+|   |       
+|   +---Models
+|   |       ApplicationUser.cs
+|   |       Cart.cs
+|   |       CartItem.cs
+|   |       Category.cs
+|   |       Comment.cs
+|   |       Context.cs
+|   |       ErrorViewModel.cs
+|   |       MailRequest.cs
+|   |       Order.cs
+|   |       OrderItem.cs
+|   |       Product.cs
+|   |       Shipment.cs
+|   |       
+|   +---Properties
+|   |       launchSettings.json
+|   |       
+|   +---Repository
+|   |       CartItemRepository.cs
+|   |       CartRepository.cs
+|   |       CategoryRepository.cs
+|   |       CommentRepository.cs
+|   |       ICartItemRepository.cs
+|   |       ICartRepository.cs
+|   |       ICategoryRepository.cs
+|   |       ICommentRepository.cs
+|   |       IOrderItemRepository.cs
+|   |       IOrderRepository.cs
+|   |       IProductRepository.cs
+|   |       IRepository.cs
+|   |       IShipmentRepository.cs
+|   |       OrderItemRepository.cs
+|   |       OrderRepository.cs
+|   |       ProductRepository.cs
+|   |       Repository.cs
+|   |       ShipmentRepository.cs
+|   |       
+|   +---Services
+|   |       CartItemService.cs
+|   |       CartService.cs
+|   |       CategoryService.cs
+|   |       CommentService.cs
+|   |       ICartItemService.cs
+|   |       ICartService.cs
+|   |       ICategoryService.cs
+|   |       ICommentService.cs
+|   |       IMailService.cs
+|   |       IOrderItemService.cs
+|   |       IOrderService.cs
+|   |       IProductService.cs
+|   |       IShipmentService.cs
+|   |       MailService.cs
+|   |       OrderItemService.cs
+|   |       OrderService.cs
+|   |       ProductService.cs
+|   |       ShipmentService.cs
+|   |       
+|   +---Settings
+|   |       MailSettings.cs
+|   |       
+|   +---TempelateMails
+|   |       forceEmailConfirmationTemplate.cs
+|   |       mailTemplate.cs
+|   |       ResetPasswordTempelate.cs
+|   |       
+|   +---ViewModels
+|   |   |   AccountInfoViewModel.cs
+|   |   |   CheckoutViewModel.cs
+|   |   |   forceEmailConfirmationMailAdditionalParamsViewModel.cs
+|   |   |   ForgotPasswordViewModel.cs
+|   |   |   LoginViewModel.cs
+|   |   |   MailAdditionalParamsViewModel.cs
+|   |   |   RegisterViewModel.cs
+|   |   |   resetPasswordViewModel.cs
+|   |   |   
+|   |   +---CartItem
+|   |   |       CartItemViewModel.cs
+|   |   |       
+|   |   +---Category
+|   |   |       CategoryWithProducts.cs
+|   |   |       
+|   |   +---Comment
+|   |   |       CommentWithUserNameViewModel.cs
+|   |   |       
+|   |   +---Home
+|   |   |       Prod_Cat_Cart_VM.cs
+|   |   |       
+|   |   \---Product
+|   |           Products_With_CategoriesVM.cs
+|   |           ProductWithCatNameAndComments.cs
+|   |           ProductWithCommentsViewModel.cs
+|   |           ProductWithListOfCatesViewModel.cs
+|   |           Product_With_RelatedProducts.cs
+|   |           
+|   +---Views
+|   |   |   _ViewImports.cshtml
+|   |   |   _ViewStart.cshtml
+|   |   |   
+|   |   +---Account
+|   |   |       AddAdmin.cshtml
+|   |   |       forgotPassword.cshtml
+|   |   |       login.cshtml
+|   |   |       myAccount.cshtml
+|   |   |       Register.cshtml
+|   |   |       removeAdmin.cshtml
+|   |   |       resetPassword.cshtml
+|   |   |       test.cshtml
+|   |   |       _accountChangePasswordPartial.cshtml
+|   |   |       _accountInfoPartial.cshtml
+|   |   |       _accountOrdersPartial.cshtml
+|   |   |       _accountShipmentsPartial.cshtml
+|   |   |       
+|   |   +---Cart
+|   |   |       Delete.cshtml
+|   |   |       Get.cshtml
+|   |   |       GetAll.cshtml
+|   |   |       Insert.cshtml
+|   |   |       Update.cshtml
+|   |   |       
+|   |   +---CartItem
+|   |   |       Delete.cshtml
+|   |   |       GetAll.cshtml
+|   |   |       Update.cshtml
+|   |   |       
+|   |   +---Category
+|   |   |       Delete.cshtml
+|   |   |       Get.cshtml
+|   |   |       GetAll - Copy.cshtml
+|   |   |       GetAll.cshtml
+|   |   |       Insert.cshtml
+|   |   |       Update - Copy.cshtml
+|   |   |       Update.cshtml
+|   |   |       
+|   |   +---Dashbourd
+|   |   |       admins.cshtml
+|   |   |       categories.cshtml
+|   |   |       categoryDetails.cshtml
+|   |   |       Index.cshtml
+|   |   |       OrderDetails.cshtml
+|   |   |       orders.cshtml
+|   |   |       ProductDetails.cshtml
+|   |   |       products.cshtml
+|   |   |       users.cshtml
+|   |   |       _CommentPartial.cshtml
+|   |   |       _getOrdersPartial.cshtml
+|   |   |       
+|   |   +---Home
+|   |   |       Index.cshtml
+|   |   |       Privacy.cshtml
+|   |   |       
+|   |   +---Mail
+|   |   |       confirmSendingForceConfirmationEmail.cshtml
+|   |   |       confirmSendingForgetPasswordEmail.cshtml
+|   |   |       
+|   |   +---Order
+|   |   |       checkout.cshtml
+|   |   |       Delete.cshtml
+|   |   |       Get.cshtml
+|   |   |       GetAll.cshtml
+|   |   |       Insert.cshtml
+|   |   |       myorder.cshtml
+|   |   |       PlaceOrder.cshtml
+|   |   |       Update.cshtml
+|   |   |       
+|   |   +---OrderItem
+|   |   |       Delete.cshtml
+|   |   |       Get.cshtml
+|   |   |       GetAll.cshtml
+|   |   |       Insert.cshtml
+|   |   |       Update.cshtml
+|   |   |       
+|   |   +---Product
+|   |   |       Delete.cshtml
+|   |   |       Get.cshtml
+|   |   |       GetAll.cshtml
+|   |   |       Insert.cshtml
+|   |   |       test.cshtml
+|   |   |       Update.cshtml
+|   |   |       
+|   |   +---Shared
+|   |   |       Error.cshtml
+|   |   |       NotFound.cshtml
+|   |   |       _AllProductsLayout.cshtml
+|   |   |       _BlankLayout.cshtml
+|   |   |       _CartLayout.cshtml
+|   |   |       _CheckoutLayout.cshtml
+|   |   |       _DashbourdLayout.cshtml
+|   |   |       _IndexLayout.cshtml
+|   |   |       _Layout.cshtml
+|   |   |       _Layout.cshtml.css
+|   |   |       _navPartial.cshtml
+|   |   |       _ProductLayout.cshtml
+|   |   |       _ProductsPartial.cshtml
+|   |   |       _StoreLayout.cshtml
+|   |   |       _ValidationScriptsPartial.cshtml
+|   |   |       
+|   |   \---Shipment
+|   |           Delete.cshtml
+|   |           Get.cshtml
+|   |           GetAll.cshtml
+|   |           Insert.cshtml
+|   |           Update.cshtml
+|   |           _GetShipmentProductsPartial.cshtml
+|   |           
+|   \---wwwroot
+|                   
+\---obj
+        ecommerce.csproj.EntityFrameworkCore.targets
+        

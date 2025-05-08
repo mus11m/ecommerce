@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ecommerce.Models;
 using System;
@@ -7,6 +7,8 @@ namespace ecommerce.Data
 {
     public static class SeedData
     {
+        private static readonly DateTime StaticOrderDate = new DateTime(2024, 5, 1);
+        private static readonly DateTime StaticShipmentDate = new DateTime(2024, 5, 3);
         private static readonly PasswordHasher<ApplicationUser> _passwordHasher = new();
 
         public static void Initialize(ModelBuilder modelBuilder)
@@ -65,10 +67,11 @@ namespace ecommerce.Data
                 NormalizedEmail = "ADMIN@STORE.COM",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
-                SecurityStamp = Guid.NewGuid().ToString("D")
+                SecurityStamp = "static-security-stamp-1234",
+                ConcurrencyStamp = "static-concurrency-stamp-1234"
             };
 
-            adminUser.PasswordHash = _passwordHasher.HashPassword(adminUser, "Admin@123");
+            adminUser.PasswordHash = "AQAAAAIAAYagAAAAEO199WOzDkPydv/Iqc3a2zez0yi3adJpveTuzV527q7P9pIMRZ7e5m0Sce0fzx4/+w==";
 
             modelBuilder.Entity<ApplicationUser>().HasData(adminUser);
 
@@ -185,7 +188,7 @@ namespace ecommerce.Data
                 new Order
                 {
                     Id = 1,
-                    OrderDate = DateTime.UtcNow.AddDays(-7),
+                    OrderDate = StaticOrderDate,                    
                     ApplicationUserId = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                     ShipmentId = 1
                 }
@@ -216,7 +219,7 @@ namespace ecommerce.Data
                     Region = "NY",
                     PostalCode = "10001",
                     Country = "USA",
-                    Date = DateTime.UtcNow.AddDays(-5),
+                    Date = StaticShipmentDate,
                     UserId = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                     OrderId = 1
                 }
