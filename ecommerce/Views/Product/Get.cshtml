@@ -588,43 +588,49 @@
     </div>
     <!-- /container -->
 </div>
+
 <!-- /Section -->
 @section Scripts {
+    <!-- Product detail specific script -->
+    <script src="~/js/product-detail.js"></script>
+
+    <!-- SignalR for comments -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js" integrity="sha512-7rhBJh1om/W5Ztx7WiYOR9h2wlSaTmPyQMoHFtbT/FVNIA12y6S6I8HY9mrBS1uJ3dSU/R3qaSAXsGYuRjMDxg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script>
-        function AddProduct() {
-            alert("Product Added To cart successfully");
-        }
+        // Initialize SignalR for comments
+        $(document).ready(function() {
+            var PrdId = $("#inputId").val();
+            var hub = new signalR.HubConnectionBuilder().withUrl("/CommentHub").build();
+
+            hub.start().then(function () {
+                console.log("Connected to SignalR hub for product ID: " + PrdId);
+            });
+
+            hub.on("ReciveComment", function (UserName, review, Prd_Id) {
+                if (PrdId == Prd_Id) {
+                    $("#UlReviews").append(`
+                        <li>
+                            <div class="review-heading">
+                                <h5 class="name">${UserName}</h5>
+                            </div>
+                            <div class="review-body">
+                                <p>${review}</p>
+                            </div>
+                        </li>`);
+                }
+            });
+
+            // Expose SendData to global scope for the button click
+            window.SendData = function() {
+                var UserID = $("#inputUserID").val();
+                var msg = $("#Msg").val();
+                var id = parseInt(PrdId);
+                hub.invoke("SendComment", UserID, msg, id);
+            };
+        });
     </script>
 }
-
-<script src="/lib/jquery/dist/jquery.min.js"> </script>
-@* <script src="/lib/signalr.js/jquery.signalR.min.js"> </script> *@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js" integrity="sha512-7rhBJh1om/W5Ztx7WiYOR9h2wlSaTmPyQMoHFtbT/FVNIA12y6S6I8HY9mrBS1uJ3dSU/R3qaSAXsGYuRjMDxg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-    var PrdId = $("#inputId").val();
-    var hub = new signalR.HubConnectionBuilder().withUrl("/CommentHub").build();
-    hub.start().then(function () { console.log(PrdId) });
-    hub.on("ReciveComment", function (UserName, review, Prd_Id) {
-        if (PrdId == Prd_Id) {
-            $("#UlReviews").append(` <li>
-                                                            <div class="review-heading">
-                                                                <h5 class="name">${UserName}</h5>
-
-                                                            </div>
-                                                            <div class="review-body">
-                                                                <p>${review}</p>
-                                                            </div>
-                                                        </li>`);
-        }
-    })
-    function SendData() {
-        var UserID = $("#inputUserID").val();
-        var msg = $("#Msg").val();
-        var id = parseInt(PrdId);
-        hub.invoke("SendComment", UserID, msg, id);
-    }
-
-</script>
 
 
 

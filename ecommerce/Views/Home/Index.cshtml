@@ -155,7 +155,7 @@
 										{
 											<div class="product-widget">
 												<div class="product-img">
-													<img src="~/img/@item.Product.ImageUrl" alt="@item.Product.Name" width="200" />
+													<img src="@item.Product.ImageUrl" alt="@item.Product.Name" width="200" />
 												</div>
 												<div class="product-body">
 													<h3 class="product-name"><a asp-action="Details" asp-controller="Product" asp-route-id="@item.Product.Id">@item.Product.Name</a></h3>
@@ -236,7 +236,7 @@
 						<div class="col-md-4 col-xs-6">
 							<div class="shop">
 								<div class="shop-img">
-									<img src="/img/@cat.ImageUrl" alt="@cat.Name" height="300" style="max-width: 100%;" width="auto">
+									<img src="@cat.ImageUrl" alt="@cat.Name" height="300" style="max-width: 100%;" width="auto">
 								</div>
 								<div class="shop-body">
 									<h3>@cat.Name<br>Collection</h3>
@@ -290,7 +290,7 @@
 										<a asp-action="Details" asp-controller="Product" asp-route-id="@prod.Id">
 
 												<div class="product-img">
-													<img src="./img/@prod.ImageUrl" alt="@prod.Name" height="200">
+													<img src="@prod.ImageUrl" alt="@prod.Name" height="200">
 													<div class="product-label">
 														<span class="sale">-30%</span>
 														<span class="new">NEW</span>
@@ -422,7 +422,7 @@
 											<a asp-action="Details" asp-controller="Product" asp-route-id="@prod.Id">
 
 												<div class="product-img">
-													<img src="./img/@prod.ImageUrl" alt="@prod.Name" height="200">
+													<img src="@prod.ImageUrl" alt="@prod.Name" height="200">
 													<div class="product-label">
 														<span class="sale">-30%</span>
 														<span class="new">NEW</span>
@@ -495,7 +495,7 @@
 								<div class="product-widget">
 									<div class="product-img">
 										<a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">
-											<img src="./img/@item.ImageUrl" alt="@item.Name" height="50" width="50">
+											<img src="@item.ImageUrl" alt="@item.Name" height="50" width="50">
 										</a>
 									</div>
 									<div class="product-body">
@@ -515,7 +515,7 @@
 								<div class="product-widget">
 									<div class="product-img">
 										<a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">
-											<img src="./img/@item.ImageUrl" alt="@item.Name" height="50" width="50">
+											<img src="@item.ImageUrl" alt="@item.Name" height="50" width="50">
 										</a>
 									</div>
 									<div class="product-body">
@@ -546,7 +546,7 @@
 								<div class="product-widget">
 									<div class="product-img">
 										<a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">
-											<img src="./img/@item.ImageUrl" alt="@item.Name" height="50" width="50">
+											<img src="@item.ImageUrl" alt="@item.Name" height="50" width="50">
 										</a>
 									</div>
 									<div class="product-body">
@@ -566,7 +566,7 @@
 								<div class="product-widget">
 									<div class="product-img">
 										<a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">
-											<img src="./img/@item.ImageUrl" alt="@item.Name" height="50" width="50">
+											<img src="@item.ImageUrl" alt="@item.Name" height="50" width="50">
 										</a>
 									</div>
 									<div class="product-body">
@@ -599,7 +599,7 @@
 								<div class="product-widget">
 									<div class="product-img">
 										<a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">
-											<img src="./img/@item.ImageUrl" alt="@item.Name" height="50" width="50">
+											<img src="@item.ImageUrl" alt="@item.Name" height="50" width="50">
 										</a>
 									</div>
 									<div class="product-body">
@@ -619,7 +619,7 @@
 								<div class="product-widget">
 									<div class="product-img">
 										<a asp-action="Details" asp-controller="Product" asp-route-id="@item.Id">
-											<img src="./img/@item.ImageUrl" alt="@item.Name" height="50" width="50">
+											<img src="@item.ImageUrl" alt="@item.Name" height="50" width="50">
 										</a>
 									</div>
 									<div class="product-body">
@@ -745,7 +745,10 @@
 	<script src="js/slick.min.js"></script>
 	<script src="js/nouislider.min.js"></script>
 	<script src="js/jquery.zoom.min.js"></script>
-	<script src="js/main.js"></script>
+	<script asp-src="~/js/main.js"></script>
+	@* <script asp-src="~/js/product-detail.js"></script>
+	<script asp-src="~/js/product-filter.js"></script>
+	<script asp-src="~/js/cart.js"></script> *@
 
 
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">

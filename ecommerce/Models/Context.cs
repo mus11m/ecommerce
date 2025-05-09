@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity; // Add this using statement
+using Microsoft.AspNetCore.Identity;
+using ecommerce.Data; // Add this for SeedData
 
 namespace ecommerce.Models
 {
@@ -28,19 +29,19 @@ namespace ecommerce.Models
         {
             base.OnModelCreating(builder);
 
-            // Seed the "Admin" role with a static GUID
-            builder.Entity<IdentityRole>().HasData(
-                new IdentityRole
-                {
-                    Id = "d7b9a9a0-1b9f-4b3d-9c7a-7a1b9f4b3d9c", // Replace with your own GUID
-                    Name = "Admin",
-                    NormalizedName = "ADMIN"
-                }
-            );
+            // Explicitly define relationships
+            builder.Entity<Cart>()
+                .HasOne(c => c.User)
+                .WithMany()
+                .HasForeignKey(c => c.ApplicationUserId);
 
-            // Unique index for ApplicationUser's Email
-            builder.Entity<ApplicationUser>().HasIndex(appUser => appUser.Email)
-                .IsUnique();
+            builder.Entity<Order>()
+                .HasOne(o => o.Shipment)
+                .WithOne(s => s.Order)
+                .HasForeignKey<Order>(o => o.ShipmentId);
+
+            // Seed data AFTER configuring relationships
+            SeedData.Initialize(builder);
         }
     }
 }

@@ -12,8 +12,8 @@ using ecommerce.Models;
 namespace ecommerce.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20250507225607_SeedAdminRole")]
-    partial class SeedAdminRole
+    [Migration("20250509155835_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,6 +145,13 @@ namespace ecommerce.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
+                            RoleId = "d7b9a9a0-1b9f-4b3d-9c7a-7a1b9f4b3d9c"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -220,10 +227,6 @@ namespace ecommerce.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -233,6 +236,24 @@ namespace ecommerce.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "static-concurrency-stamp-1234",
+                            Email = "admin@store.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@STORE.COM",
+                            NormalizedUserName = "ADMIN@STORE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO199WOzDkPydv/Iqc3a2zez0yi3adJpveTuzV527q7P9pIMRZ7e5m0Sce0fzx4/+w==",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "static-security-stamp-1234",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@store.com"
+                        });
                 });
 
             modelBuilder.Entity("ecommerce.Models.Cart", b =>
@@ -252,6 +273,13 @@ namespace ecommerce.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Cart");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ApplicationUserId = "a18be9c0-aa65-4af8-bd17-00bd9344e575"
+                        });
                 });
 
             modelBuilder.Entity("ecommerce.Models.CartItem", b =>
@@ -278,6 +306,22 @@ namespace ecommerce.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("CartItem");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CartId = 1,
+                            ProductId = 1,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CartId = 1,
+                            ProductId = 2,
+                            Quantity = 1
+                        });
                 });
 
             modelBuilder.Entity("ecommerce.Models.Category", b =>
@@ -302,6 +346,29 @@ namespace ecommerce.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Latest electronic gadgets",
+                            ImageUrl = "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&h=600&auto=format&fit=crop",
+                            Name = "Electronics"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Bestselling books",
+                            ImageUrl = "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=800&h=600&auto=format&fit=crop",
+                            Name = "Books"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Fashionable clothing",
+                            ImageUrl = "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=800&h=600&auto=format&fit=crop",
+                            Name = "Clothing"
+                        });
                 });
 
             modelBuilder.Entity("ecommerce.Models.Comment", b =>
@@ -330,6 +397,15 @@ namespace ecommerce.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ProductId = 1,
+                            UserId = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
+                            text = "Great product!"
+                        });
                 });
 
             modelBuilder.Entity("ecommerce.Models.Order", b =>
@@ -359,6 +435,15 @@ namespace ecommerce.Migrations
                         .HasFilter("[ShipmentId] IS NOT NULL");
 
                     b.ToTable("Order");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ApplicationUserId = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
+                            OrderDate = new DateTime(2024, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ShipmentId = 1
+                        });
                 });
 
             modelBuilder.Entity("ecommerce.Models.OrderItem", b =>
@@ -385,6 +470,15 @@ namespace ecommerce.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderItem");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            OrderId = 1,
+                            ProductId = 1,
+                            Quantity = 1
+                        });
                 });
 
             modelBuilder.Entity("ecommerce.Models.Product", b =>
@@ -427,6 +521,41 @@ namespace ecommerce.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Product");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Color = "Black",
+                            Description = "Noise-cancelling Bluetooth headphones",
+                            ImageUrl = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&auto=format&fit=crop",
+                            Name = "Wireless Headphones",
+                            Price = 199.99m,
+                            Quantity = 50
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 2,
+                            Color = "White",
+                            Description = "C# Programming Guide",
+                            ImageUrl = "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=800&h=600&auto=format&fit=crop",
+                            Name = "Programming Book",
+                            Price = 49.99m,
+                            Quantity = 100
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 3,
+                            Color = "Blue",
+                            Description = "Cotton crew-neck t-shirt",
+                            ImageUrl = "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&auto=format&fit=crop",
+                            Name = "T-Shirt",
+                            Price = 29.99m,
+                            Quantity = 200
+                        });
                 });
 
             modelBuilder.Entity("ecommerce.Models.Shipment", b =>
@@ -472,6 +601,20 @@ namespace ecommerce.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Shipment");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "123 Main St",
+                            City = "New York",
+                            Country = "USA",
+                            Date = new DateTime(2024, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderId = 1,
+                            PostalCode = "10001",
+                            Region = "NY",
+                            UserId = "a18be9c0-aa65-4af8-bd17-00bd9344e575"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -3,14 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ecommerce</title>
+    <title>@ViewData["Title"] - TechXpress</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ecommerce.styles.css" asp-append-version="true" />
+    <!-- Add any common CSS here -->
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
     <header>
-       <partial name="_navPartial"></partial>
+        <partial name="_navPartial"></partial>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -20,13 +22,21 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - ecommerce - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - TechXpress - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> 
-    <script src="~/js/site.js" asp-append-version="true"></script>
 
+    <!-- Core JavaScript Libraries -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Our Common Functionality -->
+    <script asp-src="~/js/main.js" asp-append-version="true"></script>
+
+    <!-- Legacy script if needed -->
+    <script asp-src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Component-specific scripts -->
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace ecommerce.Migrations
 {
     /// <inheritdoc />
-    public partial class abdulrahamaninit : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -348,6 +350,75 @@ namespace ecommerce.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "d7b9a9a0-1b9f-4b3d-9c7a-7a1b9f4b3d9c", null, "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, "static-concurrency-stamp-1234", "admin@store.com", true, false, null, "ADMIN@STORE.COM", "ADMIN@STORE.COM", "AQAAAAIAAYagAAAAEO199WOzDkPydv/Iqc3a2zez0yi3adJpveTuzV527q7P9pIMRZ7e5m0Sce0fzx4/+w==", null, true, "static-security-stamp-1234", false, "admin@store.com" });
+
+            migrationBuilder.InsertData(
+                table: "Category",
+                columns: new[] { "Id", "Description", "ImageUrl", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Latest electronic gadgets", "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&h=600&auto=format&fit=crop", "Electronics" },
+                    { 2, "Bestselling books", "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=800&h=600&auto=format&fit=crop", "Books" },
+                    { 3, "Fashionable clothing", "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=800&h=600&auto=format&fit=crop", "Clothing" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "d7b9a9a0-1b9f-4b3d-9c7a-7a1b9f4b3d9c", "a18be9c0-aa65-4af8-bd17-00bd9344e575" });
+
+            migrationBuilder.InsertData(
+                table: "Cart",
+                columns: new[] { "Id", "ApplicationUserId" },
+                values: new object[] { 1, "a18be9c0-aa65-4af8-bd17-00bd9344e575" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "Id", "CategoryId", "Color", "Description", "ImageUrl", "Name", "Price", "Quantity", "Rating" },
+                values: new object[,]
+                {
+                    { 1, 1, "Black", "Noise-cancelling Bluetooth headphones", "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&auto=format&fit=crop", "Wireless Headphones", 199.99m, 50, null },
+                    { 2, 2, "White", "C# Programming Guide", "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=800&h=600&auto=format&fit=crop", "Programming Book", 49.99m, 100, null },
+                    { 3, 3, "Blue", "Cotton crew-neck t-shirt", "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&auto=format&fit=crop", "T-Shirt", 29.99m, 200, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Shipment",
+                columns: new[] { "Id", "Address", "City", "Country", "Date", "OrderId", "PostalCode", "Region", "UserId" },
+                values: new object[] { 1, "123 Main St", "New York", "USA", new DateTime(2024, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "10001", "NY", "a18be9c0-aa65-4af8-bd17-00bd9344e575" });
+
+            migrationBuilder.InsertData(
+                table: "CartItem",
+                columns: new[] { "Id", "CartId", "ProductId", "Quantity" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, 2 },
+                    { 2, 1, 2, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Comments",
+                columns: new[] { "Id", "ProductId", "UserId", "text" },
+                values: new object[] { 1, 1, "a18be9c0-aa65-4af8-bd17-00bd9344e575", "Great product!" });
+
+            migrationBuilder.InsertData(
+                table: "Order",
+                columns: new[] { "Id", "ApplicationUserId", "OrderDate", "ShipmentId" },
+                values: new object[] { 1, "a18be9c0-aa65-4af8-bd17-00bd9344e575", new DateTime(2024, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 });
+
+            migrationBuilder.InsertData(
+                table: "OrderItem",
+                columns: new[] { "Id", "OrderId", "ProductId", "Quantity" },
+                values: new object[] { 1, 1, 1, 1 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -379,13 +450,6 @@ namespace ecommerce.Migrations
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_Email",
-                table: "AspNetUsers",
-                column: "Email",
-                unique: true,
-                filter: "[Email] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
