@@ -224,10 +224,6 @@ namespace ecommerce.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -353,21 +349,21 @@ namespace ecommerce.Migrations
                         {
                             Id = 1,
                             Description = "Latest electronic gadgets",
-                            ImageUrl = "https://source.unsplash.com/featured/800x600?electronics",
+                            ImageUrl = "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&h=600&auto=format&fit=crop",
                             Name = "Electronics"
                         },
                         new
                         {
                             Id = 2,
                             Description = "Bestselling books",
-                            ImageUrl = "https://source.unsplash.com/featured/800x600?books",
+                            ImageUrl = "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=800&h=600&auto=format&fit=crop",
                             Name = "Books"
                         },
                         new
                         {
                             Id = 3,
                             Description = "Fashionable clothing",
-                            ImageUrl = "https://source.unsplash.com/featured/800x600?clothing",
+                            ImageUrl = "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=800&h=600&auto=format&fit=crop",
                             Name = "Clothing"
                         });
                 });
@@ -530,7 +526,7 @@ namespace ecommerce.Migrations
                             CategoryId = 1,
                             Color = "Black",
                             Description = "Noise-cancelling Bluetooth headphones",
-                            ImageUrl = "https://source.unsplash.com/featured/800x600?headphones",
+                            ImageUrl = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&auto=format&fit=crop",
                             Name = "Wireless Headphones",
                             Price = 199.99m,
                             Quantity = 50
@@ -541,7 +537,7 @@ namespace ecommerce.Migrations
                             CategoryId = 2,
                             Color = "White",
                             Description = "C# Programming Guide",
-                            ImageUrl = "https://source.unsplash.com/featured/800x600?book",
+                            ImageUrl = "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=800&h=600&auto=format&fit=crop",
                             Name = "Programming Book",
                             Price = 49.99m,
                             Quantity = 100
@@ -552,7 +548,7 @@ namespace ecommerce.Migrations
                             CategoryId = 3,
                             Color = "Blue",
                             Description = "Cotton crew-neck t-shirt",
-                            ImageUrl = "https://source.unsplash.com/featured/800x600?tshirt",
+                            ImageUrl = "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&auto=format&fit=crop",
                             Name = "T-Shirt",
                             Price = 29.99m,
                             Quantity = 200

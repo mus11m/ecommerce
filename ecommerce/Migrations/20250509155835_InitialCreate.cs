@@ -365,9 +365,9 @@ namespace ecommerce.Migrations
                 columns: new[] { "Id", "Description", "ImageUrl", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Latest electronic gadgets", "https://source.unsplash.com/featured/800x600?electronics", "Electronics" },
-                    { 2, "Bestselling books", "https://source.unsplash.com/featured/800x600?books", "Books" },
-                    { 3, "Fashionable clothing", "https://source.unsplash.com/featured/800x600?clothing", "Clothing" }
+                    { 1, "Latest electronic gadgets", "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&h=600&auto=format&fit=crop", "Electronics" },
+                    { 2, "Bestselling books", "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=800&h=600&auto=format&fit=crop", "Books" },
+                    { 3, "Fashionable clothing", "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=800&h=600&auto=format&fit=crop", "Clothing" }
                 });
 
             migrationBuilder.InsertData(
@@ -385,9 +385,9 @@ namespace ecommerce.Migrations
                 columns: new[] { "Id", "CategoryId", "Color", "Description", "ImageUrl", "Name", "Price", "Quantity", "Rating" },
                 values: new object[,]
                 {
-                    { 1, 1, "Black", "Noise-cancelling Bluetooth headphones", "https://source.unsplash.com/featured/800x600?headphones", "Wireless Headphones", 199.99m, 50, null },
-                    { 2, 2, "White", "C# Programming Guide", "https://source.unsplash.com/featured/800x600?book", "Programming Book", 49.99m, 100, null },
-                    { 3, 3, "Blue", "Cotton crew-neck t-shirt", "https://source.unsplash.com/featured/800x600?tshirt", "T-Shirt", 29.99m, 200, null }
+                    { 1, 1, "Black", "Noise-cancelling Bluetooth headphones", "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&auto=format&fit=crop", "Wireless Headphones", 199.99m, 50, null },
+                    { 2, 2, "White", "C# Programming Guide", "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=800&h=600&auto=format&fit=crop", "Programming Book", 49.99m, 100, null },
+                    { 3, 3, "Blue", "Cotton crew-neck t-shirt", "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&auto=format&fit=crop", "T-Shirt", 29.99m, 200, null }
                 });
 
             migrationBuilder.InsertData(
@@ -450,13 +450,6 @@ namespace ecommerce.Migrations
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_Email",
-                table: "AspNetUsers",
-                column: "Email",
-                unique: true,
-                filter: "[Email] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",

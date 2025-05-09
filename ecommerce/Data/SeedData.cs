@@ -93,21 +93,21 @@ namespace ecommerce.Data
                     Id = 1,
                     Name = "Electronics",
                     Description = "Latest electronic gadgets",
-                    ImageUrl = "https://source.unsplash.com/featured/800x600?electronics"
+                    ImageUrl = "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&h=600&auto=format&fit=crop"
                 },
                 new Category
                 {
                     Id = 2,
                     Name = "Books",
                     Description = "Bestselling books",
-                    ImageUrl = "https://source.unsplash.com/featured/800x600?books"
+                    ImageUrl = "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=800&h=600&auto=format&fit=crop"
                 },
                 new Category
                 {
                     Id = 3,
                     Name = "Clothing",
                     Description = "Fashionable clothing",
-                    ImageUrl = "https://source.unsplash.com/featured/800x600?clothing"
+                    ImageUrl = "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=800&h=600&auto=format&fit=crop"
                 }
             );
         }
@@ -123,7 +123,7 @@ namespace ecommerce.Data
                     Price = 199.99m,
                     Quantity = 50,
                     Color = "Black",
-                    ImageUrl = "https://source.unsplash.com/featured/800x600?headphones",
+                    ImageUrl = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&auto=format&fit=crop",
                     CategoryId = 1
                 },
                 new Product
@@ -134,7 +134,7 @@ namespace ecommerce.Data
                     Price = 49.99m,
                     Quantity = 100,
                     Color = "White",
-                    ImageUrl = "https://source.unsplash.com/featured/800x600?book",
+                    ImageUrl = "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=800&h=600&auto=format&fit=crop",
                     CategoryId = 2
                 },
                 new Product
@@ -145,7 +145,7 @@ namespace ecommerce.Data
                     Price = 29.99m,
                     Quantity = 200,
                     Color = "Blue",
-                    ImageUrl = "https://source.unsplash.com/featured/800x600?tshirt",
+                    ImageUrl = "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&auto=format&fit=crop",
                     CategoryId = 3
                 }
             );
@@ -188,7 +188,7 @@ namespace ecommerce.Data
                 new Order
                 {
                     Id = 1,
-                    OrderDate = StaticOrderDate,                    
+                    OrderDate = StaticOrderDate,
                     ApplicationUserId = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                     ShipmentId = 1
                 }

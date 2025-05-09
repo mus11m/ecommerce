@@ -402,205 +402,26 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
-
 @section Scripts
 {
+    <!-- Product filter specific script -->
+    <script src="~/js/product-filter.js"></script>
+
+    <!-- Additional page-specific scripts -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
     <script>
-        $(document).ready(function ()
-        {
-            function DisplayCategoryProducts() {
-                console.log("entered");
-
-                // Get the selected category IDs
-                let selectedCategIdsArr = $('input[type="checkbox"][id^="category-"]:checked')
-                    .map(function () {
-                        return parseInt(this.id.replace('category-', ''));
-
-                    }).get();
-
-                console.log(selectedCategIdsArr);
-
-                let minInput = parseInt(document.getElementById('price-min').value);
-
-                let maxInput = parseInt(document.getElementById('price-max').value);
-
-                console.log("Min price from checkBox :" + minInput);
-
-                console.log("Max price from checkBox  :" + maxInput);
-
-                // Perform Ajax call
-                $.ajax({
-                    url: '/Product/GetAllFiltered',
-                    type: 'GET',
-                    traditional: true, // Set traditional to true
-                    data: { 
-                        categIds: selectedCategIdsArr , 
-                        minPrice : minInput , 
-                        maxPrice : maxInput ,
-                    },
-                    success: function (response) 
-                    {
-                        console.log("success");
-                        // Handle the response here
-                        $("#productsPartial").html(response);
-                    },
-                    error: function (xhr, status, error) 
-                    {
-                        console.error("AJAX request failed:", status, error);
-                        // Handle the failure here
-                    }
-                });
-            }
-
-            // Attach onchange event handler to checkboxes
-            $('input[type="checkbox"][id^="category-"]').change(DisplayCategoryProducts);
-        });
-
-        $(function () 
-        {
+        $(function () {
             var productsNames = @Json.Serialize(@ViewBag.AllProductsNames);
-
             $("#searchProdName").autocomplete({
                 source: productsNames,
                 minLength: 1
             });
         });
 
-         function filterByPrice()
-         {
-            let minInput = parseInt( document.getElementById('price-min').value);
-
-            let maxInput = parseInt(document.getElementById('price-max').value);
-
-             console.log("Min price :" + minInput);
-
-             console.log("Max price :" + maxInput);
-
-            // Get all the checkboxes within the checkbox-filter div
-            var checkboxes = document.querySelectorAll('.checkbox-filter input[type="checkbox"]');
-
-            // Array to store the IDs of selected checkboxes as integers
-            var selectedCheckboxes = [];
-
-            // Loop through each checkbox
-            checkboxes.forEach(function (checkbox) {
-                // Check if the checkbox is checked
-                if (checkbox.checked) {
-                    // Extract the category ID from the checkbox ID and parse it to integer
-                    var categoryId = parseInt(checkbox.id.split('-')[1]);
-                    // Add the category ID to the selectedCheckboxes array
-                    selectedCheckboxes.push(categoryId);
-                }
-            });
-
-            // Now selectedCheckboxes array contains the IDs of all selected checkboxes as integers
-            console.log(selectedCheckboxes);
-
-            $.ajax({
-                url: '/Product/GetAllFiltered',
-                type: 'GET',
-                traditional: true, // Set traditional to true
-                data: {
-                    minPrice : minInput, 
-                    maxPrice: maxInput ,
-                    categIds: selectedCheckboxes
-                },
-                success: function (response) 
-                {
-                    console.log("success");
-
-                    $("#productsPartial").html(response);
-                },
-                error: function (xhr, status, error)
-                {
-                    console.error("AJAX request failed:", status, error);
-                }
-            });
-
-         }
-    
-
-        //---------------------------------------------
-        // pagination using ajax returning partial view
-
-        $(document).ready(function ()
-        {
-            $(".pagination a").click(function (e) 
-            {
-                e.preventDefault();
-
-                var pageNum = $(this).data("page");
-
-                // Get all the checkboxes within the checkbox-filter div
-                var checkboxes = document.querySelectorAll('.checkbox-filter input[type="checkbox"]');
-
-                // Array to store the IDs of selected checkboxes as integers
-                var selectedCheckboxes = [];
-
-                // Loop through each checkbox
-                checkboxes.forEach(function (checkbox) 
-                {
-                    // Check if the checkbox is checked
-                    if (checkbox.checked) 
-                    {
-                        // Extract the category ID from the checkbox ID and parse it to integer
-                        var categoryId = parseInt(checkbox.id.split('-')[1]);
-                        // Add the category ID to the selectedCheckboxes array
-                        selectedCheckboxes.push(categoryId);
-                    }
-                });
-
-                // Now selectedCheckboxes array contains the IDs of all selected checkboxes as integers
-                console.log(selectedCheckboxes);
-
-                let minInput = parseInt(document.getElementById('price-min').value);
-
-                let maxInput = parseInt(document.getElementById('price-max').value);
-
-                loadProducts(pageNum, selectedCheckboxes, minInput , maxInput );
-            });
-
-            function loadProducts(pageNum, selectedCategIdsArr, minInput, maxInput) 
-            {
-                console.log("suceessfully got : " + selectedCategIdsArr);
-
-                console.log("suceessfully got : " + pageNum);
-                    
-                console.log("Min price from pagination :" + minInput);
-
-                console.log("Max price from pagination  :" + maxInput);
-
-                $.ajax({
-                    url: '/Product/GetAllFiltered',
-                    type: 'GET',
-                    traditional: true, // Set traditional to true
-                    data: {
-                        page: pageNum,
-                        categIds: selectedCategIdsArr ,
-                        minPrice : minInput , maxPrice : maxInput ,
-                    }, 
-
-                    success: function (response) 
-                    {
-                        console.log("success");
-
-                        $("#productsPartial").html(response);
-                    },
-                    error: function (xhr, status, error) 
-                    {
-                        console.error("AJAX request failed:", status, error);
-                    }
-                });
-            }
-        });
-
         function AddProduct(){
             alert("Product Added to cart successfully");
         }
-
     </script>
 }
